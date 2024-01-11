@@ -10,7 +10,7 @@ Our game area will feature a terrain created with the "Perlin Noise" algorithm. 
 Additionally, after collecting the food waste, the A* pathfinding algorithm will be used to draw the optimal path from the player to the target location where the players will carry the collected food waste. This path will be represented by a glowing yellow line in front of the player, and they will need to follow this path to transport the food waste items to the waste collection center.
 
 ## How to code
-- Run npm install to install dependencies
+- Run 'npm install' to install dependencies
 (if your terminal warns you about vulnerabilities, ignore it)
-- Run npm run dev to launch the local server
+- Run 'npm run dev' to launch the local server
 (project should open on your default browser automatically)
