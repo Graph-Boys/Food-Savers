@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import {RigidBody} from '@react-three/rapier'
-import {useState, useRef} from "react";
+import {useState, useRef, useMemo} from "react";
 import {useFrame} from "@react-three/fiber";
 import {useGLTF} from "@react-three/drei";
 
@@ -11,7 +11,7 @@ const obstacleMaterial = new THREE.MeshStandardMaterial({color: "orangered"});
 const wallMaterial = new THREE.MeshStandardMaterial({color: "slategray"});
 
 
-function BlockStart({position = [0, 0, 0]}) {
+export function BlockStart({position = [0, 0, 0]}) {
     return <group position={position}>
         {/* Floor */}
         <mesh geometry={boxGeometry} material={floor1Material} position={[0, -0.1, 0]} scale={[4, 0.2, 4]}
@@ -19,7 +19,7 @@ function BlockStart({position = [0, 0, 0]}) {
     </group>
 }
 
-function BlockEnd({position = [0, 0, 0]}) {
+export function BlockEnd({position = [0, 0, 0]}) {
     const hamburger = useGLTF('./hamburger.glb');
 
     hamburger.scene.children.forEach((mesh) =>
@@ -38,7 +38,7 @@ function BlockEnd({position = [0, 0, 0]}) {
     </group>
 }
 
-function BlockSpinner({position = [0, 0, 0]}) {
+export function BlockSpinner({position = [0, 0, 0]}) {
     const obstacle = useRef();
     const [speed] = useState(() => (Math.random() + 0.2) * (Math.random() > 0.5 ? 1 : -1));
 
@@ -63,7 +63,7 @@ function BlockSpinner({position = [0, 0, 0]}) {
     </group>
 }
 
-function BlockLimbo({position = [0, 0, 0]}) {
+export function BlockLimbo({position = [0, 0, 0]}) {
     const obstacle = useRef();
     const [timeOffset] = useState(() => Math.random() * 2 * Math.PI);
 
@@ -88,7 +88,7 @@ function BlockLimbo({position = [0, 0, 0]}) {
     </group>
 }
 
-function BlockAxe({position = [0, 0, 0]}) {
+export function BlockAxe({position = [0, 0, 0]}) {
     const obstacle = useRef();
     const [timeOffset] = useState(() => Math.random() * 2 * Math.PI);
 
@@ -113,15 +113,26 @@ function BlockAxe({position = [0, 0, 0]}) {
     </group>
 }
 
-export default function Level() {
+export function Level({count = 5, types = [BlockSpinner, BlockLimbo, BlockAxe]}) {
+
+    const blocks = useMemo(() => {
+        const blocks = [];
+
+        for (let i = 0; i < count; i++) {
+            const type = types[Math.floor(Math.random() * types.length)];
+
+            blocks.push(type)
+        }
+
+        return blocks;
+    }, [count, types])
 
     return <>
 
-        <BlockStart position={[0, 0, 16]}/>
-        <BlockSpinner position={[0, 0, 12]}/>
-        <BlockLimbo position={[0, 0, 8]}/>
-        <BlockAxe position={[0, 0, 4]}/>
-        <BlockEnd position={[0, 0, 0]}/>
+        <BlockStart position={[0, 0, 0]}/>
+        {blocks.map((Block, index) => <Block key={index} position={[0, 0, -4 * (index + 1)]}/>)}
+        <BlockEnd position={[0, 0, -4 * (count + 1)]}/>
+
 
     </>
 }
