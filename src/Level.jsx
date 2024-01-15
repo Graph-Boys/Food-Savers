@@ -48,7 +48,7 @@ export function BlockSpinner({position = [0, 0, 0]}) {
         rotation.setFromEuler(new THREE.Euler(0, time * speed, 0));
         obstacle.current.setNextKinematicRotation(rotation);
 
-        console.log("time: ", time);
+        //console.log("time: ", time);
     })
 
     return <group position={position}>
@@ -73,7 +73,7 @@ export function BlockLimbo({position = [0, 0, 0]}) {
 
         obstacle.current.setNextKinematicTranslation({x: position[0], y: position[1] + y, z: position[2]});
 
-        console.log("time: ", time);
+        //console.log("time: ", time);
     })
 
     return <group position={position}>
@@ -98,7 +98,7 @@ export function BlockAxe({position = [0, 0, 0]}) {
 
         obstacle.current.setNextKinematicTranslation({x: position[0] + x, y: position[1] + 0.75, z: position[2]});
 
-        console.log("time: ", time);
+        //console.log("time: ", time);
     })
 
     return <group position={position}>
