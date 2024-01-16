@@ -1,11 +1,28 @@
 import {useRapier, RigidBody} from "@react-three/rapier";
-import {useFrame} from "@react-three/fiber";
-import {useKeyboardControls} from "@react-three/drei";
+import {useFrame, extend} from "@react-three/fiber";
+import {shaderMaterial ,useKeyboardControls} from "@react-three/drei";
 import {useState, useEffect, useRef} from "react";
 import * as THREE from "three";
 import useGame from "./stores/useGame.jsx";
+import portalVertexShader from './shaders/portal/vertex.glsl'
+import portalFragmentShader from './shaders/portal/fragment.glsl'
+
+const PortalMaterial = shaderMaterial(
+    {
+        uTime: 0,
+        uColorStart: new THREE.Color('#ffffff'),
+        uColorEnd: new THREE.Color('#000000')
+    },
+    portalVertexShader,
+    portalFragmentShader
+)
+
+extend({ PortalMaterial })
 
 export default function Player() {
+
+    const portalMaterial = useRef()
+
     const body = useRef()
     const [subscribeKeys, getKeys] = useKeyboardControls()
     const {rapier, world} = useRapier()
@@ -136,13 +153,18 @@ export default function Player() {
             restart()
             //console.log("restart")
         }
+
+        /**
+         * Portal Shader
+         */
+        portalMaterial.current.uTime += delta
     })
 
     return <RigidBody ref={body} canSleep={false} colliders={"ball"} restitution={0.2} friction={1} linearDamping={0.5}
                       angularDamping={0.5} position={[0, 1, 0]}>
         <mesh castShadow>
             <icosahedronGeometry args={[0.3, 1]}/>
-            <meshStandardMaterial flatShading color={'hotpink'}/>
+            <portalMaterial ref={portalMaterial}/>
         </mesh>
     </RigidBody>
 }
