@@ -41,6 +41,15 @@ export function BlockEnd({position = [0, 0, 0]}) {
     })
 
     return <group position={position}>
+        <Text
+            font="/bebas-neue-v9-latin-regular.woff"
+            scale={1}
+            position={[0, 2.25,2]}
+        >
+            FINISH
+            <meshBasicMaterial toneMapped={false}/>
+        </Text>
+
         {/* Floor */}
         <mesh geometry={boxGeometry} material={floor1Material} position={[0, 0, 0]} scale={[4, 0.2, 4]}
               receiveShadow/>
