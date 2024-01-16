@@ -4,6 +4,7 @@ import Lights from './Lights.jsx'
 import {Level} from "./Level.jsx";
 import Player from "./Player.jsx";
 import useGame from "./stores/useGame.jsx";
+import TerrainManager from "./components/TerrainManager";
 
 export default function Experience() {
     const blocksCount = useGame(state => state.blocksCount)
@@ -18,6 +19,7 @@ export default function Experience() {
         <Physics debug={true}>
             <Lights/>
             <Level count={blocksCount} seed={blocksSeed}/>
+            <TerrainManager />
             <Player/>
         </Physics>
 
