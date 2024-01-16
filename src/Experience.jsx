@@ -7,14 +7,17 @@ import useGame from "./stores/useGame.jsx";
 
 export default function Experience() {
     const blocksCount = useGame(state => state.blocksCount)
+    const blocksSeed = useGame(state => state.blocksSeed)
 
     return <>
+
+        <color args={['#bdedfc']} attach={"background"}/>
 
         {/*<OrbitControls makeDefault/>*/}
 
         <Physics debug={true}>
             <Lights/>
-            <Level count={blocksCount}/>
+            <Level count={blocksCount} seed={blocksSeed}/>
             <Player/>
         </Physics>
 

@@ -11,7 +11,7 @@ export default function Player() {
     const {rapier, world} = useRapier()
     const rapierWorld = world
 
-    const [smoothedCameraPosition] = useState(() => new THREE.Vector3(1000, 1000, 1000))
+    const [smoothedCameraPosition] = useState(() => new THREE.Vector3(100, 100, 100))
     const [smoothedCameraTarget] = useState(() => new THREE.Vector3())
 
     const start = useGame(state => state.start)
