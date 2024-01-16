@@ -3,6 +3,7 @@ import {useFrame} from "@react-three/fiber";
 import {useKeyboardControls} from "@react-three/drei";
 import {useState, useEffect, useRef} from "react";
 import * as THREE from "three";
+import useGame from "./stores/useGame.jsx";
 
 export default function Player() {
     const body = useRef()
@@ -12,6 +13,11 @@ export default function Player() {
 
     const[smoothedCameraPosition] = useState(() => new THREE.Vector3(1000, 1000, 1000))
     const[smoothedCameraTarget] = useState(() => new THREE.Vector3())
+
+    const start = useGame(state => state.start)
+    const end = useGame(state => state.end)
+    const restart = useGame(state => state.restart)
+    const blocksCount = useGame(state => state.blocksCount)
 
     const jump = () => {
         const origin = body.current.translation()
@@ -34,8 +40,14 @@ export default function Player() {
                     jump()
             })
 
+        const unsubscribeAny = subscribeKeys(() => {
+            //console.log("Any key pressed")
+            start()
+        })
+
         return () => {
             unsubscribeJump()
+            unsubscribeAny()
         }
     }, [])
 
@@ -95,6 +107,19 @@ export default function Player() {
 
         state.camera.position.copy(smoothedCameraPosition)
         state.camera.lookAt(smoothedCameraTarget)
+
+        /**
+         * Phases
+         */
+        if (bodyPosition.z < -(blocksCount*4+2)){
+            end()
+            //console.log("end")
+        }
+
+        if(bodyPosition.y < -5){
+            restart()
+            //console.log("restart")
+        }
     })
 
     return <RigidBody ref={body} canSleep={false} colliders={"ball"} restitution={0.2} friction={1} linearDamping={0.5}
