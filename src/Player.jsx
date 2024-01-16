@@ -11,8 +11,8 @@ export default function Player() {
     const {rapier, world} = useRapier()
     const rapierWorld = world
 
-    const[smoothedCameraPosition] = useState(() => new THREE.Vector3(1000, 1000, 1000))
-    const[smoothedCameraTarget] = useState(() => new THREE.Vector3())
+    const [smoothedCameraPosition] = useState(() => new THREE.Vector3(1000, 1000, 1000))
+    const [smoothedCameraTarget] = useState(() => new THREE.Vector3())
 
     const start = useGame(state => state.start)
     const end = useGame(state => state.end)
@@ -41,7 +41,7 @@ export default function Player() {
 
     useEffect(() => {
         const unsubscribeReset = useGame.subscribe(
-            (state) =>state.phase,
+            (state) => state.phase,
             (value) => {
                 if (value === 'ready')
                     reset()
@@ -127,12 +127,12 @@ export default function Player() {
         /**
          * Phases
          */
-        if (bodyPosition.z < -(blocksCount*4+2)){
+        if (bodyPosition.z < -(blocksCount * 4 + 2)) {
             end()
             //console.log("end")
         }
 
-        if(bodyPosition.y < -5){
+        if (bodyPosition.y < -5) {
             restart()
             //console.log("restart")
         }
