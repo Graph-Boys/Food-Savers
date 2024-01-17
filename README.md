@@ -1,5 +1,5 @@
 # Food-Savers
-Reducing Food Waste: A key to a more sustainable food system
+Reducing Food Waste: A key to a more sustainable food system. (A computer graphics Design Project)
 ![alt text](https://i.ibb.co/jkM5s7n/DALL-E-2024-01-12-11-25-02-This-image-depicts-a-scene-from-a-video-game-called-Food-Savers-aimed-at.png)
 
 ## Description
@@ -10,7 +10,7 @@ Our game area will feature a terrain created with the "Perlin Noise" algorithm. 
 
 Additionally, after collecting the food waste, the A* pathfinding algorithm will be used to draw the optimal path from the player to the target location where the players will carry the collected food waste. This path will be represented by a glowing yellow line in front of the player, and they will need to follow this path to transport the food waste items to the waste collection center.
 
-## How to code
+## How to run
 - Run 'npm install' to install dependencies
 (if your terminal warns you about vulnerabilities, ignore it)
 - Run 'npm run dev' to launch the local server
