@@ -28,8 +28,7 @@ export function BlockStart({position = [0, 0, 0]}) {
             </Text>
         </Float>
         {/* Floor */}
-        <mesh geometry={boxGeometry} material={floor1Material} position={[0, -0.1, 0]} scale={[4, 0.2, 4]}
-              receiveShadow/>
+
     </group>
 }
 
@@ -51,8 +50,7 @@ export function BlockEnd({position = [0, 0, 0]}) {
         </Text>
 
         {/* Floor */}
-        <mesh geometry={boxGeometry} material={floor1Material} position={[0, 0, 0]} scale={[4, 0.2, 4]}
-              receiveShadow/>
+
         {/* Hamburger */}
         <RigidBody type={"fixed"} colliders={"hull"} position={[0, 0.25, 0]} restitution={0.2} friction={0}>
             <primitive object={hamburger.scene} scale={0.2}/>
@@ -76,8 +74,7 @@ export function BlockSpinner({position = [0, 0, 0]}) {
 
     return <group position={position}>
         {/* Floor */}
-        <mesh geometry={boxGeometry} material={floor2Material} position={[0, -0.1, 0]} scale={[4, 0.2, 4]}
-              receiveShadow/>
+
         {/* Obstacle */}
         <RigidBody ref={obstacle} type={"kinematicPosition"} position={[0, 0.3, 0]} restitution={0.2} friction={0}>
             <mesh geometry={boxGeometry} material={obstacleMaterial} scale={[3.5, 0.3, 0.3]} castShadow receiveShadow/>
@@ -101,8 +98,7 @@ export function BlockLimbo({position = [0, 0, 0]}) {
 
     return <group position={position}>
         {/* Floor */}
-        <mesh geometry={boxGeometry} material={floor2Material} position={[0, -0.1, 0]} scale={[4, 0.2, 4]}
-              receiveShadow/>
+
         {/* Obstacle */}
         <RigidBody ref={obstacle} type={"kinematicPosition"} position={[0, 0.3, 0]} restitution={0.2} friction={0}>
             <mesh geometry={boxGeometry} material={obstacleMaterial} scale={[3.5, 0.3, 0.3]} castShadow receiveShadow/>
@@ -126,8 +122,7 @@ export function BlockAxe({position = [0, 0, 0]}) {
 
     return <group position={position}>
         {/* Floor */}
-        <mesh geometry={boxGeometry} material={floor2Material} position={[0, -0.1, 0]} scale={[4, 0.2, 4]}
-              receiveShadow/>
+
         {/* Obstacle */}
         <RigidBody ref={obstacle} type={"kinematicPosition"} position={[0, 0.3, 0]} restitution={0.2} friction={0}>
             <mesh geometry={boxGeometry} material={obstacleMaterial} scale={[1.5, 1.5, 0.3]} castShadow receiveShadow/>
