@@ -11,7 +11,7 @@ const PortalMaterial = shaderMaterial(
     {
         uTime: 0,
         uColorStart: new THREE.Color('#ffffff'),
-        uColorEnd: new THREE.Color('#000000')
+        uColorEnd: new THREE.Color('#ff0000')
     },
     portalVertexShader,
     portalFragmentShader
