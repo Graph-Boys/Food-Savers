@@ -13,14 +13,14 @@ const wallMaterial = new THREE.MeshStandardMaterial({color: "slategray"});
 
 export function BlockStart({position = [0, 0, 0]}) {
     return <group position={position}>
-        <Float floatIntensity={0.25} rotationIntensity={0.25}>
+        <Float floatIntensity={2} rotationIntensity={0.25}>
             <Text
                 font="/bebas-neue-v9-latin-regular.woff"
-                scale={0.5}
+                scale={1.5}
                 maxWidth={0.25}
                 lineHeight={0.75}
-                textAlign={"right"}
-                position={[0, 0.9, 0]}
+                textAlign={"center"}
+                position={[0, 1.5, 0]}
                 rotation-y={-0.25}
             >
                 Food Savers
@@ -139,21 +139,21 @@ function Bounds({length = 1}) {
     return <>
         <RigidBody type={"fixed"} restitution={0.2} friction={0}>
             <mesh
-                position={[2.15, 0.75, -(length * 2) + 2]}
+                position={[2.15, 0.75, 50-(length * 2) + 2]}
                 geometry={boxGeometry}
                 material={wallMaterial}
                 scale={[0.3, 1.5, length * 4]}
                 castShadow
             />
             <mesh
-                position={[-2.15, 0.75, -(length * 2) + 2]}
+                position={[-2.15, 0.75, 50-(length * 2) + 2]}
                 geometry={boxGeometry}
                 material={wallMaterial}
                 scale={[0.3, 1.5, length * 4]}
                 receiveShadow
             />
             <mesh
-                position={[0, 0.75, -(length * 4) + 2]}
+                position={[0, 0.75, 50-(length * 4) + 2]}
                 geometry={boxGeometry}
                 material={wallMaterial}
                 scale={[4, 1.5, 0.3]}
@@ -185,10 +185,10 @@ export function Level({count = 5, types = [BlockSpinner, BlockLimbo, BlockAxe], 
 
     return <>
 
-        <BlockStart position={[0, 0, 0]}/>
-        {blocks.map((Block, index) => <Block key={index} position={[0, 0, -4 * (index + 1)]}/>)}
-        <BlockEnd position={[0, 0, -4 * (count + 1)]}/>
-        <Bounds length={count + 2}/>
+        <BlockStart position={[0, 0, 50]}/>
+        {blocks.map((Block, index) => <Block key={index} position={[0, 0, 50-(4 * (index + 1))]}/>)}
+        <BlockEnd position={[0, 0, 50-(4 * (count + 1))]}/>
+        {<Bounds length={count + 2}/>}
 
 
     </>

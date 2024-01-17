@@ -16,7 +16,7 @@ export default function Experience() {
 
         {/*<OrbitControls makeDefault/>*/}
 
-        <Physics debug={true}>
+        <Physics debug={false}>
             <Lights/>
             <Level count={blocksCount} seed={blocksSeed}/>
             <TerrainManager />

@@ -2,6 +2,7 @@ import { Suspense, useMemo, useRef, useState } from "react";
 import { createNoise2D } from "simplex-noise";
 import { BufferAttribute } from "three";
 import { useControls } from "leva";
+import {CuboidCollider, Physics, RigidBody} from '@react-three/rapier'
 
 import MountainMaterial from "./MountainMaterial";
 import WireframeMaterial from "./WireframeMaterial";
@@ -146,13 +147,15 @@ const Terrain = ({ seed, size, height, levels = 8, scale = 1, offset }) => {
   const { wireframe } = useControls({ wireframe: false });
 
   return (
-    <group scale={1 / scale} position={[-offset.x, 0, -offset.z]}>
+    <group scale={250} position={[-offset.x, -0.01, -offset.z]}>
+      <RigidBody type={"fixed"} restitution={0.2} friction={0}>
       <mesh>
         <planeGeometry args={[1, 1, size - 1, size - 1]} ref={ref} />
         <Suspense fallback={<WireframeMaterial />}>
           {wireframe ? <WireframeMaterial /> : <MountainMaterial />}
         </Suspense>
       </mesh>
+      </RigidBody>
       <mesh>
         <planeGeometry args={[1, 1, 1, size - 1]} ref={northRef} />
         <meshBasicMaterial
@@ -185,6 +188,7 @@ const Terrain = ({ seed, size, height, levels = 8, scale = 1, offset }) => {
           side={DoubleSide}
         />
       </mesh>
+      <RigidBody type={"fixed"} restitution={0.2} friction={0}>
       <mesh // bottom
         rotation-x={Math.PI / 2}
         position={[-scale / size / 2, lowestPoint, -scale / size / 2]}
@@ -193,6 +197,7 @@ const Terrain = ({ seed, size, height, levels = 8, scale = 1, offset }) => {
         <planeGeometry />
         <meshBasicMaterial color="black" wireframe={wireframe} />
       </mesh>
+        </RigidBody>
     </group>
   );
 };

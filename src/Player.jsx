@@ -28,7 +28,7 @@ export default function Player() {
     const {rapier, world} = useRapier()
     const rapierWorld = world
 
-    const [smoothedCameraPosition] = useState(() => new THREE.Vector3(100, 100, 100))
+    const [smoothedCameraPosition] = useState(() => new THREE.Vector3(10, 10, 10))
     const [smoothedCameraTarget] = useState(() => new THREE.Vector3())
 
     const start = useGame(state => state.start)
@@ -38,7 +38,7 @@ export default function Player() {
 
     const jump = () => {
         const origin = body.current.translation()
-        origin.y -= 0.31
+        origin.y -= 0.30
         const direction = {x: 0, y: -1, z: 0}
         const ray = new rapier.Ray(origin, direction)
         const hit = rapierWorld.castRay(ray, 10, true)
@@ -51,7 +51,7 @@ export default function Player() {
 
     const reset = () => {
         console.log("reset")
-        body.current.setTranslation({x: 0, y: 1, z: 0})
+        body.current.setTranslation({x: 0, y: 2, z: 100})
         body.current.setLinvel({x: 0, y: 0, z: 0})
         body.current.setAngvel({x: 0, y: 0, z: 0})
     }
@@ -74,7 +74,8 @@ export default function Player() {
 
         const unsubscribeAny = subscribeKeys(() => {
             //console.log("Any key pressed")
-            start()
+            if(body.current.translation().z < 51 && body.current.translation().y < 1 && body.current.translation().x > -1.7 && body.current.translation().x < 1.7)
+                start()
         })
 
         return () => {
@@ -128,15 +129,15 @@ export default function Player() {
 
         const cameraPosition = new THREE.Vector3()
         cameraPosition.copy(bodyPosition)
-        cameraPosition.y += 0.65
-        cameraPosition.z += 2.25
+        cameraPosition.y += 2
+        cameraPosition.z += 7.5
 
         const cameraTarget = new THREE.Vector3()
         cameraTarget.copy(bodyPosition)
         cameraTarget.y += 0.25
 
-        smoothedCameraPosition.lerp(cameraPosition, 5 * delta)
-        smoothedCameraTarget.lerp(cameraTarget, 5 * delta)
+        smoothedCameraPosition.lerp(cameraPosition, 10 * delta)
+        smoothedCameraTarget.lerp(cameraTarget, 10 * delta)
 
         state.camera.position.copy(smoothedCameraPosition)
         state.camera.lookAt(smoothedCameraTarget)
@@ -144,14 +145,15 @@ export default function Player() {
         /**
          * Phases
          */
-        if (bodyPosition.z < -(blocksCount * 4 + 2)) {
+        if (bodyPosition.z < 50-(blocksCount * 4 + 2)) {
             end()
             //console.log("end")
         }
 
-        if (bodyPosition.y < -5) {
+        if (bodyPosition.y < -1) {
             restart()
-            //console.log("restart")
+            reset()
+            console.log("restart")
         }
 
         /**
@@ -161,7 +163,7 @@ export default function Player() {
     })
 
     return <RigidBody ref={body} canSleep={false} colliders={"ball"} restitution={0.2} friction={1} linearDamping={0.5}
-                      angularDamping={0.5} position={[0, 1, 0]}>
+                      angularDamping={0.5} position={[0, 2, 100]}>
         <mesh castShadow>
             <icosahedronGeometry args={[0.3, 1]}/>
             <portalMaterial ref={portalMaterial}/>
