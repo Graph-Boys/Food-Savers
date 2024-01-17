@@ -7,7 +7,7 @@ import {Float, Text, useGLTF} from "@react-three/drei";
 const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
 const floor1Material = new THREE.MeshStandardMaterial({color: "limegreen"});
 const floor2Material = new THREE.MeshStandardMaterial({color: "greenyellow"});
-const obstacleMaterial = new THREE.MeshStandardMaterial({color: "orangered"});
+const obstacleMaterial = new THREE.MeshStandardMaterial({color: "yellowgreen"});
 const wallMaterial = new THREE.MeshStandardMaterial({color: "slategray"});
 
 
